@@ -1,5 +1,5 @@
 {
-  "name": "jest",
+  "name": "jestlearn",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,5 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^26.4.0"
+  }
 }

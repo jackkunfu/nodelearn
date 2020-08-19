@@ -32,10 +32,10 @@ module.exports = class AutoTest {
   getTestSource (fn, requirePath, isClass = false) {
     return `
       test('Test ${fn}', () => {
-        let ${ isClass ? '{ fn }' : fn } = new (require('../index'))()
-        let file = ${fn}()
-        console.log(file)
-        expect(file).toBe('/abc/__test__/class.spec.js')
+        let ${ isClass ? '{ fn }' : fn } = require('../${requirePath}'))
+        let ret = ${fn}()
+        console.log(ret)
+        expect(ret).toBe('/data/__test__/${fn}.spec.js')
       })
     `
   }

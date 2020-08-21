@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.0-rc.5/vue.global.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div v-for="item in list" :key="item">{{ item }}</div>
+    <input type="textarea" v-model="str" />
+    <button @click="submit">提交</button>
+  </div>
+  <script>
+    var user = Date.now()
+    var sk = io()
+    Vue.createApp({
+      setup () {
+        let str = Vue.reactive('')
+        let list = Vue.reactive([])
+        let submit = () => {
+          console.log(str.trim())
+          sk.emit('msg', str.trim())
+          // str = ''
+        }
+        sk.on('msg', msg => {
+          list.push(user + '' + msg)
+        })
+        return {
+          str, list, submit
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>

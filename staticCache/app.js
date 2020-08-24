@@ -1,8 +1,9 @@
 const http = require('http')
 const crypto = require('crypto') // 加密
+const { fstat } = require('fs')
 
 http.createServer((req, res) => {
-  const { url } = req
+  const { url, method } = req
   if (url === '/') {
     res.end(
       `<html>
@@ -46,6 +47,8 @@ http.createServer((req, res) => {
 
     res.statusCode = 200
     res.end(content)
+  } else if (method === 'GET' && headers.accept && headers.accept.indexOf('image/*') > -1) { // 处理图片请求
+    fs.createReadSteam(path.join('.') + url).pipe(res) // stream流方式返回
   } else if (url === '/favicon.ico') {
     res.end('')
   }
